@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
+import renderToaster from "@/utils/renderToaster";
 
 export default function TodoForm() {
   const { addTodo } = useTodo();
@@ -23,6 +24,7 @@ export default function TodoForm() {
     try {
       setIsSubmitting(true);
       addTodo(trimmedTodo);
+      renderToaster("New Todo", "Successfully added new todo.");
       setTodo("");
     } catch (error) {
       setError("Failed to add todo. Please try again.");

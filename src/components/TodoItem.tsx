@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import ConfirmationDialog from "./ConfirmationDialog";
+import renderToaster from "@/utils/renderToaster";
 
 export default function TodoItem({ todo }: { todo: TodoType }) {
   const [isEditable, setIsEditable] = useState(false);
@@ -40,6 +41,7 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
             action="Update"
             handlerFunction={() => {
               updateTodo(todo.id, todoContent);
+              renderToaster("Update Todo", "Successfully updated the todo.");
               setIsEditable(false);
             }}
           >
@@ -60,6 +62,7 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
           distructive={true}
           handlerFunction={() => {
             deleteTodo(todo.id);
+            renderToaster("Delete Todo", "Successfully deleted the todo.");
           }}
         >
           <Trash2 />
