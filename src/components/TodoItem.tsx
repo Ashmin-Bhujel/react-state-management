@@ -4,27 +4,12 @@ import { Pencil, Save, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 export default function TodoItem({ todo }: { todo: TodoType }) {
   const [isEditable, setIsEditable] = useState(false);
   const [todoContent, setTodoContent] = useState(todo.content);
   const { updateTodo, deleteTodo, toggleDone } = useTodo();
-
-  function handleUpdate(id: string, content: string) {
-    const response = confirm("Are you sure you want to update this todo?");
-
-    if (response) {
-      updateTodo(id, content);
-    }
-  }
-
-  function handleDelete(id: string) {
-    const response = confirm("Are you sure you want to delete this todo?");
-
-    if (response) {
-      deleteTodo(id);
-    }
-  }
 
   return (
     <div
@@ -50,14 +35,16 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
 
       <div className="space-x-2">
         {isEditable ? (
-          <Button
-            onClick={() => {
-              handleUpdate(todo.id, todoContent);
+          <ConfirmationDialog
+            description="Do you want to update this todo?"
+            action="Update"
+            handlerFunction={() => {
+              updateTodo(todo.id, todoContent);
               setIsEditable(false);
             }}
           >
             <Save />
-          </Button>
+          </ConfirmationDialog>
         ) : (
           <Button
             onClick={() => setIsEditable(true)}
@@ -67,10 +54,16 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
             <Pencil />
           </Button>
         )}
-
-        <Button variant={"destructive"} onClick={() => handleDelete(todo.id)}>
+        <ConfirmationDialog
+          description="Do you want to delete this todo?"
+          action="Delete"
+          distructive={true}
+          handlerFunction={() => {
+            deleteTodo(todo.id);
+          }}
+        >
           <Trash2 />
-        </Button>
+        </ConfirmationDialog>
       </div>
     </div>
   );

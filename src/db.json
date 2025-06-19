@@ -1,3 +1,24 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": "a4f7faad-46f4-4ba0-9390-3250e86ccfc8",
+      "content": "Learn HTML5",
+      "done": true
+    },
+    {
+      "id": "4236b8d4-132c-4037-82b5-e0626ff455d7",
+      "content": "Learn CSS3",
+      "done": true
+    },
+    {
+      "id": "917e7d35-48ac-4e31-a495-7258e637e575",
+      "content": "Learn TypeScript",
+      "done": true
+    },
+    {
+      "id": "69bcf5b3-49e2-49bf-8808-46a39015f214",
+      "content": "Learn React.js",
+      "done": false
+    }
+  ]
 }
