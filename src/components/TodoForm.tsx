@@ -1,15 +1,15 @@
-import { useTodo } from "@/contexts/TodoContext";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import renderToaster from "@/utils/renderToaster";
+import { useAddTodoMutation } from "@/app/services/todosAPI";
 
 export default function TodoForm() {
-  const { addTodo } = useTodo();
   const [todo, setTodo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [addTodo] = useAddTodoMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

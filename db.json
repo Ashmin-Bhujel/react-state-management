@@ -19,6 +19,11 @@
       "id": "d7ae3c02-e617-4c97-ba94-6a606cf208ca",
       "content": "Learn React.js",
       "done": false
+    },
+    {
+      "id": "53e1e62d-eb29-4f50-9e80-8f43b2aac173",
+      "content": "Learn MongoDB",
+      "done": false
     }
   ]
 }

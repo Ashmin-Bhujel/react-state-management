@@ -1,4 +1,3 @@
-import { useTodo, type TodoType } from "@/contexts/TodoContext";
 import { Button } from "./ui/button";
 import { Pencil, Save, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -6,11 +5,19 @@ import { Input } from "./ui/input";
 import { Checkbox } from "./ui/checkbox";
 import ConfirmationDialog from "./ConfirmationDialog";
 import renderToaster from "@/utils/renderToaster";
+import {
+  useDeleteTodoMutation,
+  useToggleDoneMutation,
+  useUpdateTodoMutation,
+  type TodoType,
+} from "@/app/services/todosAPI";
 
 export default function TodoItem({ todo }: { todo: TodoType }) {
   const [isEditable, setIsEditable] = useState(false);
   const [todoContent, setTodoContent] = useState(todo.content);
-  const { updateTodo, deleteTodo, toggleDone } = useTodo();
+  const [updateTodo] = useUpdateTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
+  const [toggleDone] = useToggleDoneMutation();
 
   return (
     <div
@@ -21,7 +28,7 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
         <Checkbox
           checked={todo.done}
           onCheckedChange={() => {
-            toggleDone(todo.id, !todo.done);
+            toggleDone({ id: todo.id, done: !todo.done });
           }}
         />
         {isEditable ? (
@@ -40,7 +47,7 @@ export default function TodoItem({ todo }: { todo: TodoType }) {
             description="Do you want to update this todo?"
             action="Update"
             handlerFunction={() => {
-              updateTodo(todo.id, todoContent);
+              updateTodo({ id: todo.id, content: todoContent });
               renderToaster("Update Todo", "Successfully updated the todo.");
               setIsEditable(false);
             }}
